@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Music artist portfolio — singer, producer and instrumentalist.">
+<title>Artist Portfolio — Singer / Producer / Instrumentalist</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0a0908;
+  --surface:#14110f;
+  --surface-2:#191512;
+  --text:#f5f0e8;
+  --dim:#8a8580;
+  --accent:#e8a838;
+  --accent-soft:rgba(232,168,56,.12);
+  --border:rgba(245,240,232,.10);
+  --max:1180px;
+  --nav:78px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(232,168,56,.08),transparent 28rem),
+    radial-gradient(circle at 85% 38%,rgba(132,82,35,.08),transparent 30rem),
+    var(--bg);
+  color:var(--text);
+  font-family:"Bricolage Grotesque",sans-serif;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(calc(100% - 40px),var(--max));margin:auto}
+section{padding:120px 0;position:relative}
+.eyebrow,.tag,.nav-label{
+  font-family:"JetBrains Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:.69rem;
+}
+.eyebrow{color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow:before{content:"";width:28px;height:1px;background:var(--accent)}
+h1,h2{font-family:"Instrument Serif",serif;font-weight:400;line-height:.96}
+h1{font-size:clamp(4rem,9vw,8.4rem);letter-spacing:-.035em}
+h2{font-size:clamp(3rem,6vw,5.5rem);letter-spacing:-.025em}
+em{color:var(--accent);font-style:italic}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:90;
+  display:flex;align-items:center;
+  background:rgba(10,9,8,.72);backdrop-filter:blur(16px);
+  border-bottom:1px solid transparent;transition:.3s;
+}
+.nav.scrolled{border-color:var(--border)}
+.nav-inner{width:min(calc(100% - 40px),var(--max));margin:auto;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:"Instrument Serif",serif;font-size:1.7rem}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:.82rem;color:var(--dim);transition:.25s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a.active:after{content:"";position:absolute;bottom:-8px;left:0;right:0;height:1px;background:var(--accent)}
+.menu{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:var(--nav);overflow:hidden}
+.hero-copy{max-width:920px;position:relative;z-index:2}
+.hero .eyebrow{margin-bottom:28px}
+.hero h1{margin-bottom:28px}
+.hero-sub{max-width:600px;color:var(--dim);font-size:1.02rem;margin-bottom:38px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:50px;padding:0 22px;border:1px solid var(--border);
+  border-radius:100px;transition:.3s;cursor:pointer;
+}
+.btn-primary{background:var(--accent);color:#17110a;border-color:var(--accent);font-weight:600}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(232,168,56,.18)}
+.btn-ghost{background:rgba(255,255,255,.025)}
+.btn-ghost:hover{border-color:rgba(232,168,56,.45);color:var(--accent)}
+.waveform{position:absolute;right:-2vw;bottom:10%;width:min(430px,38vw);height:230px;display:flex;align-items:center;justify-content:center;gap:5px;opacity:.45;transform:rotate(-2deg)}
+.bar{width:3px;height:40px;background:var(--accent);border-radius:5px;animation:pulse 1.2s ease-in-out infinite alternate}
+@keyframes pulse{0%{transform:scaleY(.3);opacity:.35}100%{transform:scaleY(1);opacity:1}}
+.waveform .bar:nth-child(2n){animation-duration:.8s}.waveform .bar:nth-child(3n){animation-duration:1.5s}.waveform .bar:nth-child(4n){animation-delay:-.5s}
+.scroll-note{position:absolute;bottom:30px;left:0;color:var(--dim);font:10px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+
+/* ABOUT */
+.section-head{display:flex;justify-content:space-between;gap:30px;margin-bottom:55px}
+.section-head h2{max-width:700px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px}
+.bio{max-width:620px}
+.bio p{color:var(--dim);font-size:1.03rem;margin-bottom:20px}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:35px}
+.skill{border:1px solid var(--border);padding:8px 12px;border-radius:100px;color:#c8c1b8;font-size:.78rem;background:rgba(255,255,255,.018)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{min-height:180px;border:1px solid var(--border);background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));padding:25px;display:flex;flex-direction:column;justify-content:space-between;transition:.3s}
+.stat:hover{border-color:rgba(232,168,56,.35);transform:translateY(-4px)}
+.stat strong{font-family:"Instrument Serif",serif;font-size:3.5rem;font-weight:400;color:var(--text)}
+.stat span{color:var(--dim);font:10px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em}
+
+/* WORKS */
+.works{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:8px;margin-bottom:35px}
+.tab{border:1px solid var(--border);background:none;color:var(--dim);padding:10px 17px;border-radius:100px;cursor:pointer;font-size:.8rem;transition:.25s}
+.tab.active,.tab:hover{background:var(--accent);border-color:var(--accent);color:#17110a}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.song-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.song-card{background:var(--surface);border:1px solid var(--border);transition:.35s;overflow:hidden}
+.song-card:hover{transform:translateY(-7px);border-color:rgba(232,168,56,.35);box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.cover{aspect-ratio:1/1;position:relative;overflow:hidden}
+.cover svg{width:100%;height:100%;display:block}
+.play{
+  position:absolute;left:20px;bottom:20px;width:52px;height:52px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.25);background:rgba(10,9,8,.75);color:var(--text);
+  display:grid;place-items:center;cursor:pointer;transition:.3s;backdrop-filter:blur(8px)
+}
+.play:after{content:"";width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid var(--accent);margin-left:3px}
+.song-card:hover .play{transform:scale(1.12);background:var(--accent)}
+.song-card:hover .play:after{border-left-color:#17110a}
+.song-info{padding:18px 19px 21px}
+.song-title{font-size:1.1rem;margin-bottom:8px}
+.meta{display:flex;gap:8px;color:var(--dim);font:10px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.07em}
+.meta span+span:before{content:"·";margin-right:8px;color:var(--accent)}
+
+.film-list{display:grid;gap:14px}
+.film-card{display:grid;grid-template-columns:270px 1fr;min-height:245px;border:1px solid var(--border);background:var(--surface);transition:.35s;overflow:hidden}
+.film-card:hover{transform:translateY(-5px);border-color:rgba(232,168,56,.35)}
+.poster svg{width:100%;height:100%;display:block}
+.film-content{padding:28px 32px;display:flex;flex-direction:column;justify-content:center}
+.film-content .tag{color:var(--accent);margin-bottom:12px}
+.film-content h3{font-family:"Instrument Serif",serif;font-size:2.6rem;font-weight:400;margin-bottom:10px}
+.film-content p{color:var(--dim);max-width:650px;margin-bottom:20px}
+.credits{display:flex;gap:25px;flex-wrap:wrap}
+.credit{color:var(--dim);font:10px "JetBrains Mono",monospace;text-transform:uppercase}
+.credit b{display:block;color:var(--text);font-weight:400;margin-top:4px}
+
+/* CONTACT */
+.contact{text-align:center}
+.contact-inner{max-width:850px;margin:auto}
+.contact .eyebrow{justify-content:center}
+.contact h2{margin:25px 0 25px}
+.contact-copy{color:var(--dim);max-width:530px;margin:0 auto 32px}
+.email-btn{font-family:"JetBrains Mono",monospace;font-size:.85rem;color:var(--accent);border-bottom:1px solid rgba(232,168,56,.45);padding-bottom:6px}
+.socials{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:48px}
+.social{padding:10px 16px;border:1px solid var(--border);border-radius:100px;color:var(--dim);font-size:.78rem;transition:.25s}
+.social:hover{color:var(--text);border-color:rgba(232,168,56,.4);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:25px 0;color:var(--dim);font:10px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em}
+.footer-inner{display:flex;justify-content:space-between;gap:20px}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:800px){
+  :root{--nav:68px}
+  .container,.nav-inner{width:min(calc(100% - 28px),var(--max))}
+  section{padding:85px 0}
+  .nav-links{
+    position:absolute;top:calc(100% + 1px);left:0;right:0;
+    background:rgba(10,9,8,.97);backdrop-filter:blur(16px);
+    flex-direction:column;align-items:flex-start;padding:25px 20px;
+    border-bottom:1px solid var(--border);display:none
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:1rem}
+  .menu{display:block}
+  .hero{align-items:flex-end;padding-bottom:80px}
+  .hero-sub{font-size:.95rem}
+  .waveform{right:-70px;bottom:28%;width:330px;opacity:.2}
+  .scroll-note{display:none}
+  .section-head{display:block;margin-bottom:40px}
+  .section-head h2{margin-top:15px}
+  .about-grid{grid-template-columns:1fr;gap:55px}
+  .song-grid{grid-template-columns:1fr 1fr}
+  .film-card{grid-template-columns:145px 1fr}
+  .film-content{padding:20px}
+  .film-content h3{font-size:2rem}
+}
+@media(max-width:520px){
+  h1{font-size:clamp(3.55rem,17vw,5rem)}
+  .song-grid{grid-template-columns:1fr}
+  .stats{gap:8px}
+  .stat{min-height:145px;padding:18px}
+  .stat strong{font-size:2.7rem}
+  .film-card{grid-template-columns:1fr}
+  .poster{height:180px}
+  .film-content h3{font-size:2.35rem}
+  .footer-inner{display:block}.footer-inner span+span{display:block;margin-top:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<header class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="logo">ARTIST<span>.</span></a>
+    <button class="menu" id="menuBtn" aria-label="Open navigation">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#works">Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Singer / Producer / Instrumentalist</div>
+      <h1>Sound that feels<br><em>alive.</em></h1>
+      <p class="hero-sub">A versatile independent artist creating songs, instrumental music and original scores for stories on screen.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#works">Listen Now <span>↗</span></a>
+        <a class="btn btn-ghost" href="#contact">Book / Collaborate</a>
+      </div>
+    </div>
+    <div class="waveform" aria-hidden="true">
+      <i class="bar" style="height:34px"></i><i class="bar" style="height:80px"></i><i class="bar" style="height:120px"></i>
+      <i class="bar" style="height:58px"></i><i class="bar" style="height:150px"></i><i class="bar" style="height:90px"></i>
+      <i class="bar" style="height:42px"></i><i class="bar" style="height:110px"></i><i class="bar" style="height:165px"></i>
+      <i class="bar" style="height:65px"></i><i class="bar" style="height:125px"></i><i class="bar" style="height:48px"></i>
+      <i class="bar" style="height:145px"></i><i class="bar" style="height:76px"></i><i class="bar" style="height:115px"></i>
+      <i class="bar" style="height:38px"></i><i class="bar" style="height:92px"></i><i class="bar" style="height:132px"></i>
+      <i class="bar" style="height:56px"></i><i class="bar" style="height:100px"></i>
+    </div>
+    <div class="scroll-note">Scroll to explore ↓</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">01 — About</div>
+      <h2>More than one<br><em>sound.</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="bio reveal">
+        <p>I’m an independent music artist working across singing, production and instrumental performance. My approach is rooted in curiosity — every project gets its own sound, mood and identity.</p>
+        <p>From intimate songs to cinematic textures, I enjoy moving between genres and finding the musical idea that best serves the emotion of a piece.</p>
+        <p>I also create original music and sound for short films, collaborating closely with filmmakers and artists to turn ideas into an immersive listening experience.</p>
+        <div class="skills">
+          <span class="skill">Vocals</span><span class="skill">Music Production</span><span class="skill">Film Scoring</span>
+          <span class="skill">Guitar</span><span class="skill">Keys</span><span class="skill">Mixing</span><span class="skill">Sound Design</span>
+        </div>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><strong>24+</strong><span>Songs Released</span></div>
+        <div class="stat"><strong>08</strong><span>Films Scored</span></div>
+        <div class="stat"><strong>06</strong><span>Years Experience</span></div>
+        <div class="stat"><strong>2.4M</strong><span>Total Streams</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="works" id="works">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">02 — Selected Works</div>
+      <h2>Made to be<br><em>heard.</em></h2>
+    </div>
+    <div class="tabs reveal">
+      <button class="tab active" data-tab="songs">Songs</button>
+      <button class="tab" data-tab="films">Short Films</button>
+    </div>
+
+    <div class="tab-panel active" id="songs">
+      <div class="song-grid">
+        <article class="song-card reveal">
+          <div class="cover"><svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#241507"/><stop offset=".55" stop-color="#b56b16"/><stop offset="1" stop-color="#f0c56d"/></linearGradient></defs><rect width="500" height="500" fill="url(#g1)"/><circle cx="390" cy="100" r="150" fill="#120e0b" opacity=".25"/><path d="M-20 420 Q180 260 520 360" fill="none" stroke="#fff1cc" stroke-opacity=".35" stroke-width="4"/></svg><button class="play" aria-label="Play Song Title One"></button></div>
+          <div class="song-info"><div class="song-title">Song Title One</div><div class="meta"><span>2026</span><span>Alt Pop</span><span>3:42</span></div></div>
+        </article>
+        <article class="song-card reveal">
+          <div class="cover"><svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#100d15"/><stop offset=".5" stop-color="#5e354d"/><stop offset="1" stop-color="#e8a838"/></linearGradient></defs><rect width="500" height="500" fill="url(#g2)"/><circle cx="160" cy="190" r="115" fill="#f4c979" opacity=".16"/><path d="M0 90 Q230 310 530 130" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="5"/></svg><button class="play" aria-label="Play Song Title Two"></button></div>
+          <div class="song-info"><div class="song-title">Song Title Two</div><div class="meta"><span>2025</span><span>Indie</span><span>4:08</span></div></div>
+        </article>
+        <article class="song-card reveal">
+          <div class="cover"><svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#15120e"/><stop offset=".45" stop-color="#775026"/><stop offset="1" stop-color="#d67e2c"/></linearGradient></defs><rect width="500" height="500" fill="url(#g3)"/><path d="M0 420 C130 270 350 520 540 280" fill="none" stroke="#ffe3a1" stroke-opacity=".3" stroke-width="35"/></svg><button class="play" aria-label="Play Song Title Three"></button></div>
+          <div class="song-info"><div class="song-title">Song Title Three</div><div class="meta"><span>2025</span><span>R&amp;B</span><span>3:15</span></div></div>
+        </article>
+        <article class="song-card reveal">
+          <div class="cover"><svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#0c1111"/><stop offset=".5" stop-color="#1d6260"/><stop offset="1" stop-color="#d49a3a"/></linearGradient></defs><rect width="500" height="500" fill="url(#g4)"/><circle cx="350" cy="350" r="190" fill="#0a0908" opacity=".25"/><path d="M-40 160 L540 390" stroke="#fff3d0" stroke-opacity=".22" stroke-width="3"/></svg><button class="play" aria-label="Play Song Title Four"></button></div>
+          <div class="song-info"><div class="song-title">Song Title Four</div><div class="meta"><span>2024</span><span>Soul</span><span>4:21</span></div></div>
+        </article>
+        <article class="song-card reveal">
+          <div class="cover"><svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g5" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171015"/><stop offset=".5" stop-color="#8b4056"/><stop offset="1" stop-color="#edaa42"/></linearGradient></defs><rect width="500" height="500" fill="url(#g5)"/><path d="M70 500 Q120 100 420 20" fill="none" stroke="#fbe1a6" stroke-opacity=".22" stroke-width="70"/></svg><button class="play" aria-label="Play Song Title Five"></button></div>
+          <div class="song-info"><div class="song-title">Song Title Five</div><div class="meta"><span>2024</span><span>Electronic</span><span>3:58</span></div></div>
+        </article>
+        <article class="song-card reveal">
+          <div class="cover"><svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g6" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#10100d"/><stop offset=".5" stop-color="#555b37"/><stop offset="1" stop-color="#d9a33c"/></linearGradient></defs><rect width="500" height="500" fill="url(#g6)"/><path d="M0 100 C160 220 320 20 530 190" fill="none" stroke="#fff0c0" stroke-opacity=".25" stroke-width="22"/></svg><button class="play" aria-label="Play Song Title Six"></button></div>
+          <div class="song-info"><div class="song-title">Song Title Six</div><div class="meta"><span>2023</span><span>Acoustic</span><span>2:54</span></div></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="films">
+      <div class="film-list">
+        <article class="film-card reveal">
+          <div class="poster"><svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p1" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#080807"/><stop offset=".55" stop-color="#68401a"/><stop offset="1" stop-color="#d9a13c"/></linearGradient></defs><rect width="300" height="400" fill="url(#p1)"/><circle cx="210" cy="115" r="75" fill="#f5c66a" opacity=".22"/><path d="M0 340 Q130 230 300 310" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="18"/></svg></div>
+          <div class="film-content"><span class="tag">Original Score</span><h3>Film Title One</h3><p>A short atmospheric drama exploring memory, distance and the things left unsaid.</p><div class="credits"><span class="credit">Director<b>Director Name</b></span><span class="credit">Year<b>2026</b></span><span class="credit">Runtime<b>12 min</b></span></div></div>
+        </article>
+        <article class="film-card reveal">
+          <div class="poster"><svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p2" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#090d11"/><stop offset=".55" stop-color="#31535a"/><stop offset="1" stop-color="#d58e34"/></linearGradient></defs><rect width="300" height="400" fill="url(#p2)"/><rect x="40" y="40" width="220" height="320" fill="none" stroke="#f7e4bd" stroke-opacity=".2"/><circle cx="95" cy="285" r="90" fill="#090d11" opacity=".3"/></svg></div>
+          <div class="film-content"><span class="tag">Film Score + Sound</span><h3>Film Title Two</h3><p>A restrained cinematic score built around piano, texture and evolving ambient sound.</p><div class="credits"><span class="credit">Director<b>Director Name</b></span><span class="credit">Year<b>2025</b></span><span class="credit">Runtime<b>18 min</b></span></div></div>
+        </article>
+        <article class="film-card reveal">
+          <div class="poster"><svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#110b0d"/><stop offset=".5" stop-color="#6d3041"/><stop offset="1" stop-color="#e2a33d"/></linearGradient></defs><rect width="300" height="400" fill="url(#p3)"/><path d="M-20 320 L320 70" stroke="#f7d990" stroke-opacity=".17" stroke-width="50"/><circle cx="235" cy="305" r="55" fill="#0a0908" opacity=".3"/></svg></div>
+          <div class="film-content"><span class="tag">Original Score</span><h3>Film Title Three</h3><p>An intimate character piece where the score moves between warmth, tension and silence.</p><div class="credits"><span class="credit">Director<b>Director Name</b></span><span class="credit">Year<b>2024</b></span><span class="credit">Runtime<b>09 min</b></span></div></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="eyebrow">03 — Contact</div>
+      <h2>Let’s make something<br><em>worth hearing.</em></h2>
+      <p class="contact-copy">For collaborations, original music, vocals, production, film scoring or just to say hello.</p>
+      <a class="email-btn" href="mailto:hello@example.com">hello@example.com ↗</a>
+      <div class="socials">
+        <a class="social" href="#" aria-label="Instagram">Instagram</a>
+        <a class="social" href="#" aria-label="YouTube">YouTube</a>
+        <a class="social" href="#" aria-label="Spotify">Spotify</a>
+        <a class="social" href="#" aria-label="SoundCloud">SoundCloud</a>
+        <a class="social" href="#" aria-label="LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 Artist Name. All rights reserved.</span>
+    <span>Music / Film / Sound</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('navbar');
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  menuBtn.textContent = navLinks.classList.contains('open') ? '×' : '☰';
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  menuBtn.textContent = '☰';
+}));
+
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+    observeReveals();
+  });
+});
+
+const sections = [...document.querySelectorAll('main section[id]')];
+const links = [...document.querySelectorAll('.nav-links a')];
+
+function updateNav(){
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+  let current = sections[0].id;
+  sections.forEach(section => {
+    if(window.scrollY >= section.offsetTop - 180) current = section.id;
+  });
+  links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + current));
+}
+window.addEventListener('scroll', updateNav, {passive:true});
+updateNav();
+
+let observer;
+function observeReveals(){
+  if(observer) observer.disconnect();
+  observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+observeReveals();
+
+document.querySelectorAll('.play').forEach(button => {
+  button.addEventListener('click', () => {
+    button.classList.toggle('playing');
+    button.setAttribute('aria-label', button.classList.contains('playing') ? 'Playing — click to pause' : 'Play');
+  });
+});
+</script>
+</body>
+</html>
